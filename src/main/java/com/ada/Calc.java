@@ -20,8 +20,14 @@ public class Calc {
         return x - y;
     }
 
+
     public float dividir(int x, int y){
         qtdeOperacoes++;
         return x / y;
+    }
+
+    public float multiplicar(int x, int y){
+        qtdeOperacoes++;
+        return x * y;
     }
 }

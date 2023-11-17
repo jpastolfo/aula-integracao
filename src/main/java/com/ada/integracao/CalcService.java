@@ -21,6 +21,12 @@ public class CalcService {
 
     public float dividir(int x, int y){
         qtdeOperacoes++;
-        return x / y;
+        return x / (float) y;
     }
+
+    public float multiplicar(int x, int y){
+        qtdeOperacoes++;
+        return x * y;
+    }
+
 }

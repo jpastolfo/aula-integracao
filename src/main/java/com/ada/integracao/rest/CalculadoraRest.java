@@ -55,7 +55,44 @@ public class CalculadoraRest {
 
     @GetMapping("multiplicar")
     public ResponseEntity<?> multiplicar(@RequestParam(required = true) int n1, @RequestParam(required = true) int n2) {
-        return ResponseEntity.status(HttpStatus.OK).build();
+
+        if (n1 < 0 || n2 < 0) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("número inválido");
+        }
+
+        double result = calcService.multiplicar(n1, n2);
+
+        Map <String, Object> map = new HashMap<String, Object>();
+
+        List<String> resultado = new ArrayList<String>();
+        resultado.add(String.valueOf(result));
+
+        map.put("resultado", resultado);
+        map.put("n1", String.valueOf(n1));
+        map.put("n2", String.valueOf(n2));
+
+        return ResponseEntity.status(HttpStatus.OK).body(map);
+    }
+
+    @GetMapping("dividir")
+    public ResponseEntity<?> dividir(@RequestParam(required = true) int n1, @RequestParam(required = true) int n2) {
+
+        if (n2 == 0 || n2 > n1) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("número inválido");
+        }
+
+        double result = calcService.dividir(n1, n2);
+
+        Map <String, Object> map = new HashMap<String, Object>();
+
+        List<String> resultado = new ArrayList<>();
+        resultado.add(String.valueOf(result));
+
+        map.put("resultado", resultado);
+        map.put("n1", String.valueOf(n1));
+        map.put("n2", String.valueOf(n2));
+
+        return ResponseEntity.status(HttpStatus.OK).body(map);
     }
 
 
