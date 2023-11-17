@@ -61,6 +61,25 @@ class CalculadoraRestTest {
     }
 
     @Test
+    public void teste_multiplicar_por_zero() throws Exception {
+        String n1 = "4";
+        String n2 = "0";
+        String retorno = "0.0";
+        String uri = "/calculadora/multiplicar";
+
+        mockMvc.perform(
+                        MockMvcRequestBuilders.get(uri)
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .param("n1",n1)
+                                .param("n2",n2)
+                ).andDo(MockMvcResultHandlers.print())
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.n1").value(n1))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.n2").value(n2))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.resultado").value(retorno));
+    }
+
+    @Test
     public void teste_dividir() throws Exception {
         String n1 = "10";
         String n2 = "2";
@@ -119,7 +138,7 @@ class CalculadoraRestTest {
     public void teste_dividir_menor_por_maior() throws Exception {
         String n1 = "2";
         String n2 = "10";
-        String retorno = "número inválido";
+        String retorno = "numerador deve ser maior que o denominador";
         String uri = "/calculadora/dividir";
 
         mockMvc.perform(
